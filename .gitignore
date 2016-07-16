@@ -87,3 +87,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+#i2p search settings
+*.search
+eepsites
