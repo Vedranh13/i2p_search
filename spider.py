@@ -14,6 +14,7 @@ def makeURL ( domain , isI2P = True ) -> str:
         return ("http://" + domain + ".i2p/").replace( " " , "")
     #TODO Non-i2p domains and sub-domains and pages and ...
 import threading
+#TODO PAGES!!!!!!!!!!!!!!!!!!!!!
 class eepsite (threading.Thread):
     def __init__ ( self , url ):
         threading.Thread.__init__(self)
@@ -81,7 +82,7 @@ knownSites.write ( "# " + strftime ( "%c" ) + "\n" )
 nonExistant.close()
 somethingWeirdHappened.close()
 knownSites.close()
-for i in product(" " + ascii_lowercase + digits, repeat = 5):
+for i in product(" " + ascii_lowercase + digits, repeat = 15):
     print ( sites )
     sites = sites + 1
     site = eepsite ( makeURL ( "".join(i) ) )
