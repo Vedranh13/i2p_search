@@ -12,6 +12,7 @@ import sys, getopt
 MAX_THREADS = 50
 sites = 0
 update = False
+mode = "a"
 try:
   opts, args = getopt.getopt( sys.argv[1:] , "U" , longopts = [ "update" ] )
 except getopt.GetoptError:
@@ -19,9 +20,10 @@ except getopt.GetoptError:
 for flag, arg in opts:
     if ( flag in ( "-U" , "--update" ) ):
         update = True
-nonExistant = open ( "./non_eepsites.search" , "a" )
-somethingWeirdHappened = open ( "./somethingWeirdHappened.search" , "a" )
-knownSites = open ( "./known_eepsites.search" , "a" )
+        mode = "w"
+nonExistant = open ( "./non_eepsites.search" , mode )
+somethingWeirdHappened = open ( "./somethingWeirdHappened.search" , mode )
+knownSites = open ( "./known_eepsites.search" , mode )
 nonExistant.write ( "# " + strftime ( "%c" ) + "\n" )
 somethingWeirdHappened.write ( "# " + strftime ( "%c" ) + "\n" )
 knownSites.write ( "# " + strftime ( "%c" ) + "\n" )
