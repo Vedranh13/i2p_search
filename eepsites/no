@@ -1,0 +1,112 @@
+
+
+<html>
+	<head>
+		<title>
+			
+			no.i2p registration service
+			
+		</title>
+		
+		
+		<link rel="stylesheet" type="text/css" href="/static/base.css" />
+	</head>
+	<body>
+		<div class="search_host">
+			<form action="/search/">
+				<input class="input" name="q" maxlength="67" type="text" value="Search host"
+				onblur="if (value == '') {value = 'Search host'}" onfocus="if (value == 'Search host')
+				{value =''}" />
+				<input type="submit" value="Search" />
+			</form>
+		</div>
+
+		
+		<div class="menu">
+			<ul>
+				<li><a href=/>Home</a></li>
+				<li><a href=/faq/>FAQ</a></li>
+                <li><a href=/tos/>Terms of Service</a></li>
+				<li><a href=/browse/>Browse alive hosts</a></li>
+				<li><a href=/latest/>Browse latest hosts</a></li>
+				<li><a href=/postkey/>Register a domain</a></li>
+			</ul>
+		</div>
+
+		<form action="/i18n/setlang/" method="post">
+			<input type='hidden' name='csrfmiddlewaretoken' value='Ejd5Ig1dcrJVTffMniLOE16S2Ig3Y0V3' />
+			
+			<input type="radio" value="en" name="language" />
+			<img src="/static/en.png" width="16" height="11" alt="en"/>
+			
+			<input type="submit" value="Set" />
+		</form>
+
+		
+
+		<div class="main">
+		
+		
+
+		
+	
+	<h2>About</h2>
+	<p>no.i2p registration service is a domain name registration service for I2P. Hostnames in I2P aren't
+	globally unique. no.i2p registration service doesn't act as "central authority", it only provides a
+	way to publish hosts as an easy means of access to them. You can read more about how
+	I2P naming works in the <a href=http://www.i2p2.i2p/naming.html>official docs</a>.
+	</p>
+
+	<p>To find out how we're registering and publishing hosts, look at
+	<a href=/faq/>FAQ</a> page.
+	</p>
+    <br>
+    <b>Please read the Terms of Service before registering any domains. Read them <a href=/tos/>here</a></b>
+
+	
+	<h2>Addressbook service</h2>
+	<p>
+	To start getting new hostnames from no.i2p registration service, add this
+	<a href=/export/alive-hosts.txt>subscription link</a> into your <a
+		href=http://localhost:7657/susidns/subscriptions.jsp>router's
+		addressbook</a>. Of course, you should <a
+		href=http://localhost:7657/susidns/addressbook.jsp?book=private&hostname=no.i2p&destination=8jISadUQuR~kZ9YzZxfQwSQRdhY~gkTSgy4l33jKOAraoqSmb~IcoeN5xOXyhtX8gxKEb03-48zPZnso83TwcTFg66~Cu38a59fG0h~vy~WIY5x5CwfkoCFqYmo4OzdnTY-2TcQ2ZN44VA6Sx48UXjEsSdrvn0SfaeMAW5It-N6MAV23Qgc5NgRTVJ6YS74FnRZCy6uGU-RPz1HQQIH~byW-NHBmXAW2Bmv2Kq3bHVHY9tb4d8yfrhlnaf3bfhLeELUbtBnXhLd3Zs2kX6Afz7ofDkpmaygYO6XA8QNIVcM2ub6-jSdsly~EXBtRDzF0WSbT9v8rvpop5TxjwXAnTjbS09Qq8x2Bl8wfkkPz45beN0Je7wrxp0SBk5DHhhvVbbyFUS7bDn1~aTvE7Ujq8ael3myR56jb8NlYiXaiJYgwPXpXx5gSDf8rBaDIdJsSSHWv~DqOfJ1BkhADCEfGZ3QMFY7uWrXGuj0J3OYEvonV-deMoh6pYKtgcFiewJgjAAAA>add NO</a>'s destination before.
+	</p>
+	
+
+	
+	
+	
+	<h2>Jump service</h2><p>
+		no.i2p registration service also provides a jump service. For accessing hosts through it,
+		use urls like
+		<a href="/jump/example.i2p">
+			http://no.i2p/jump/example.i2p</a>.
+		I2P since 0.8.3 gives possibility to add a custom jump-servers. Go to the i2ptunnel
+		<a href="http://localhost:7657/i2ptunnel/edit?tunnel=0">eeproxy configuration page
+		</a> and add <em>http://no.i2p/jump/</em> to "Jump URL List" section.
+		</p>
+	
+
+	
+	
+	<h2>Registration service</h2>
+	<p>If you are running an eepsite or another service and want a human-readable domain name
+	for them, consider <a href=/postkey/>registering it</a>.
+	</p>
+	
+
+		</div>
+
+		
+		<hr>
+		<div class="footer">
+			
+	<a href=http://lpsg4x4gdrf7antxcdy47cl6abcqei5ommgzt55retq7go5ku3ba.b32.i2p>b32</a> | <a href=http://localhost:7657/susidns/addressbook.jsp?book=private&hostname=no.i2p&destination=8jISadUQuR~kZ9YzZxfQwSQRdhY~gkTSgy4l33jKOAraoqSmb~IcoeN5xOXyhtX8gxKEb03-48zPZnso83TwcTFg66~Cu38a59fG0h~vy~WIY5x5CwfkoCFqYmo4OzdnTY-2TcQ2ZN44VA6Sx48UXjEsSdrvn0SfaeMAW5It-N6MAV23Qgc5NgRTVJ6YS74FnRZCy6uGU-RPz1HQQIH~byW-NHBmXAW2Bmv2Kq3bHVHY9tb4d8yfrhlnaf3bfhLeELUbtBnXhLd3Zs2kX6Afz7ofDkpmaygYO6XA8QNIVcM2ub6-jSdsly~EXBtRDzF0WSbT9v8rvpop5TxjwXAnTjbS09Qq8x2Bl8wfkkPz45beN0Je7wrxp0SBk5DHhhvVbbyFUS7bDn1~aTvE7Ujq8ael3myR56jb8NlYiXaiJYgwPXpXx5gSDf8rBaDIdJsSSHWv~DqOfJ1BkhADCEfGZ3QMFY7uWrXGuj0J3OYEvonV-deMoh6pYKtgcFiewJgjAAAA>add</a> |
+
+			powered-by: <a href=http://py-i2phosts.i2p/>py-i2phosts</a>, with upgrades! :D
+		</div>
+		
+	</body>
+</html>
+
