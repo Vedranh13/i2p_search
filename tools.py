@@ -21,6 +21,8 @@ def generateCleanDotSearches ():
     myFile4.close()
     myFile5 = open ( "./non_eepsites.search" , "w" )
     myFile5.close()
+    myFile6 = open ( "./adr_book.search" , "w" )
+    myFile6.close()
 def main( argv ):
     try:
       opts, args = getopt.getopt( argv , "hD:G" )
