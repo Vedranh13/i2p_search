@@ -23,6 +23,10 @@ class eepsite (threading.Thread):
         self.isUp = False
         self.isEepsite = True
         self.isDown = False #TODO expand the crawler to make use of these fields and be "smarter" and do things like check which known sites are still up ...
+    def update ( self ):
+        self.isKnown = False
+        self.isEepsite = True
+        self.start()
     def run ( self ):
         if ( self.isKnown or not self.isEepsite ):
             return
