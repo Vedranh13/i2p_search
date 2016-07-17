@@ -92,3 +92,4 @@ ENV/
 *.search
 eepsites/
 data/
+*.weird
