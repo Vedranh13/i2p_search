@@ -47,9 +47,9 @@ if ( params.b32 ):
             print ( "Checked" , sites , "sites" )
             #TODO make a utils.py file
             site = eepsite_spider.eepsite ( eepsite_spider.makeURL ( "".join(i) ,  isB32 = True ) )
-            if not update:
+            if not params.update:
                 site.loadOldSites()
-                site.start()
+            site.start()
 #This stops it from having to many active threads and/or active connections
         while ( active_count() >= params.MAX_THREADS ):
             print ( "Sleeping" )
@@ -61,7 +61,8 @@ else:
             sites = sites + 1
             print ( sites )
             site = eepsite_spider.eepsite ( eepsite_spider.makeURL ( "".join(adr) ) )
-            site.loadOldSites()
+            if not params.update:
+                site.loadOldSites()
             site.start()
             while ( active_count() >= params.MAX_THREADS ):
                 print ( "Sleeping" )
