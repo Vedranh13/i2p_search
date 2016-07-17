@@ -15,4 +15,6 @@ path_to_known = "./data/known_eepsites.search"
 path_to_non = "./data/non_eepsites.search"
 path_to_weird = "./data/weird/somethingWeirdHappened.search"
 path_to_weird_dir = "./data/weird/"
+path_to_blacklist = "./blacklist.search"
+path_to_keywords_dir = "./data/keywords/"
 #Former todo: "Data folder" - DONE

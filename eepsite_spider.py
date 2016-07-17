@@ -29,9 +29,10 @@ class eepsite (threading.Thread):
         self.isKnown = False
         self.isUp = False
         self.isEepsite = True
+        self.isBlacklisted = False
         #TODO expand the crawler to make use of these fields and be "smarter" and do things like check which known sites are still up ...
     def run ( self ):
-        if ( self.isUp or not self.isEepsite ):
+        if ( self.isUp or not self.isEepsite or self.isBlacklisted ):
             return
             #Former todo: program in an "update" mode - SOLVED THROUGH "UPDATE FLAG" IN "spider.py"
         res = requests.get ( self.url , proxies = params.proxy )
@@ -94,3 +95,8 @@ class eepsite (threading.Thread):
                 return
                 #TODO the other fields?
         up.close()
+        with open ( params.path_to_blacklist ) as black:
+            for line in black:
+                if self.url == line.strip():
+                    self.isBlacklisted = True
+                    return
