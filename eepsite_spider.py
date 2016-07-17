@@ -53,14 +53,17 @@ class eepsite (threading.Thread):
             with open ( params.path_to_up , "a" ) as upSites:
                 upSites.write ( self.url + "\n" )
             #This records that this url is in fact an eepsite and is currently online
-            page = open ( "./eepsites/" + unMakeURL ( self.url ) , "w" ) #TODO sub-directories and other pages?
-            page.write ( res.text )
-            page.close()
+            #page = open ( "./eepsites/" + unMakeURL ( self.url ) , "w" ) #TODO sub-directories and other pages?
+            #page.write ( res.text )
+            #page.close()
             #Creates a directory to hold the pages and sub-directories of this eepsite
             #TODO populate with content
             directory = "./eepsites/" + unMakeURL ( self.url ) + ".d"
             if not os.path.exists ( directory ):
                 os.makedirs ( directory )
+            path_to_page = directory + unMakeURL ( self.url ) + ".index"
+            with open ( path_to_page , "w" ) as page:
+                page.write ( res.text )
         elif "<h3>Website Unreachable</h3>" in res.text:
             #This most likely means the website is down
             utils.logDate ( params.path_to_down )

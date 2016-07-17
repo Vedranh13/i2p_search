@@ -4,4 +4,4 @@ def logDate ( path , perm = "a" ):
     myFile = open ( path , perm )
     myFile.write ( "# " + strftime ( "%c" ) + "\n" )
     myFile.close()
-    #TODO fix race-condition
+    #TODO fix race-condition / lock
