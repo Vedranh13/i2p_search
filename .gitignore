@@ -91,3 +91,4 @@ ENV/
 #i2p search settings
 *.search
 eepsites/
+data/
