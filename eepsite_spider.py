@@ -5,21 +5,6 @@ import os
 import params
 import utils
 #TODO Consider making an URL class
-def unMakeURL ( url ) -> str:
-    return url.replace( "http://" , "" ).replace( ".i2p/" , "" )
-def makeURL ( domain , isI2P = True , isB32 = False , isHttp = True , isOnion = False ) -> str:
-    url = domain.strip()
-    if ( isHttp ):
-        url = "http://" + url
-    if ( isB32 ):
-        url = url + ".b32"
-    if ( isI2P ):
-        url = url + ".i2p/"
-    if ( isOnion ):
-        pass
-        #TODO crawl TOR too
-    print (url.strip())
-    return url.strip()
     #TODO Non-i2p domains and sub-domains and pages and ...
 #TODO PAGES
 class eepsite (threading.Thread):
@@ -28,11 +13,10 @@ class eepsite (threading.Thread):
         self.url = url
         self.isKnown = False
         self.isUp = False
-        self.isEepsite = True
         self.isBlacklisted = False
         #TODO expand the crawler to make use of these fields and be "smarter" and do things like check which known sites are still up ...
     def run ( self ):
-        if ( self.isUp or not self.isEepsite or self.isBlacklisted ):
+        if self.isKnown :
             return
             #Former todo: program in an "update" mode - SOLVED THROUGH "UPDATE FLAG" IN "spider.py"
         res = requests.get ( self.url , proxies = params.proxy )
@@ -43,13 +27,9 @@ class eepsite (threading.Thread):
             with open ( params.path_to_non , "a" ) as nonExistant:
                 nonExistant.write ( self.url + "\n" )
             #This records that this eepsite does not currently exist
-        elif ( res.status_code == 200 ):  #then eepsite does exist and is up
+        if ( res.status_code == 200 ):  #then eepsite does exist and is up
             self.isKnown = True
             self.isUp = True
-            if ".b32" in self.url:
-                utils.logDate ( params.path_to_known ) #TODO clean up all these write with "with open ..."
-                with open ( params.path_to_known , "a" ) as knownSites:
-                    knownSites.write ( self.url + "\n" )
             utils.logDate ( params.path_to_up )
             with open ( params.path_to_up , "a" ) as upSites:
                 upSites.write ( self.url + "\n" )
@@ -59,10 +39,10 @@ class eepsite (threading.Thread):
             #page.close()
             #Creates a directory to hold the pages and sub-directories of this eepsite
             #TODO populate with content
-            directory = "./eepsites/" + unMakeURL ( self.url ) + ".d"
+            directory = "./eepsites/" + utils.unMakeUrl ( self.url ) + ".d"
             if not os.path.exists ( directory ):
                 os.makedirs ( directory )
-            path_to_page = directory + unMakeURL ( self.url ) + ".index"
+            path_to_page = directory + utils.unMakeURL ( self.url ) + ".index"
             with open ( path_to_page , "w" ) as page:
                 page.write ( res.text )
         elif "<h3>Website Unreachable</h3>" in res.text:
@@ -71,32 +51,26 @@ class eepsite (threading.Thread):
             with open ( params.path_to_down , "a" ) as down:
                 down.write ( self.url + "\n" )
             self.isKnown = True
-            #TODO possibly purge it from the Addressbook if it has been down more than a month?
+            #FormerTODO possibly purge it from the Addressbook if it has been down more than a month? - NO, bad idea, just mark it as down and don't check it until "update mode" is run
         else:
             #Unknown event occured
-            with open ( unMakeURL ( self.url ) + ".weird" , "w") as weird:
+            with open ( utils.unMakeURL ( self.url ) + ".weird" , "w") as weird:
                 weird.write ( res.text + "\n" )
                 weird.write ( res.status_code )
             weird = open ( params.path_to_weird , "a" )
             weird.write ( self.url + "\n" )
             weird.close ()
     def loadOldSites ( self ):
-        nonExistant = open ( params.path_to_non )
-        for line in nonExistant:
-            if self.url == line.strip():
-                self.isEepsite = False
-                #TODO Is it nessesary to close nonExistant here?
-                return
-        nonExistant.close()
-        up = open ( params.path_to_up )
-        for line in up:
-            if self.url == line.strip():
-                self.isUp = True
-                return
+        with open ( params.path_to_up ) as up:
+            for line in up:
+                if self.url == line.strip():
+                    self.isUp = True
+                    self.isKnown = True
+                    return
                 #TODO the other fields?
-        up.close()
         with open ( params.path_to_blacklist ) as black:
             for line in black:
                 if self.url == line.strip():
                     self.isBlacklisted = True
+                    self.isKnown = True
                     return
