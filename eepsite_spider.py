@@ -20,13 +20,6 @@ class eepsite (threading.Thread):
             return
             #Former todo: program in an "update" mode - SOLVED THROUGH "UPDATE FLAG" IN "spider.py"
         res = requests.get ( self.url , proxies = params.proxy )
-        #print ( res.text )
-        #print ( res.status_code )
-        if "<h3>Website Not Found in Addressbook</h3>" in res.text: #then eepsite does not exist
-            utils.logDate ( params.path_to_non )
-            with open ( params.path_to_non , "a" ) as nonExistant:
-                nonExistant.write ( self.url + "\n" )
-            #This records that this eepsite does not currently exist
         if ( res.status_code == 200 ):  #then eepsite does exist and is up
             self.isKnown = True
             self.isUp = True
@@ -42,7 +35,7 @@ class eepsite (threading.Thread):
             directory = "./eepsites/" + utils.unMakeUrl ( self.url ) + ".d"
             if not os.path.exists ( directory ):
                 os.makedirs ( directory )
-            path_to_page = directory + utils.unMakeURL ( self.url ) + ".index"
+            path_to_page = directory + utils.unMakeURL ( self.url ) + ".main"
             with open ( path_to_page , "w" ) as page:
                 page.write ( res.text )
         elif "<h3>Website Unreachable</h3>" in res.text:
@@ -61,7 +54,12 @@ class eepsite (threading.Thread):
             weird.write ( self.url + "\n" )
             weird.close ()
     def loadOldSites ( self ):
-        with open ( params.path_to_up ) as up:
+        with open( params.path_to_down ) as down:
+            for line in down:
+                if self.url == line.strip()
+                    self.isKnown = True
+                    return
+        with open( params.path_to_up ) as up:
             for line in up:
                 if self.url == line.strip():
                     self.isUp = True
