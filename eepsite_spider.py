@@ -4,6 +4,7 @@ import requests
 import os
 import params
 import utils
+import page
 #TODO Consider making an URL class
 #TODO Non-i2p domains and sub-domains and pages and ...
 #TODO PAGES
@@ -16,7 +17,7 @@ class eepsite (threading.Thread):
         self.isBlacklisted = False
         #TODO expand the crawler to make use of these fields and be "smarter" and do things like check which known sites are still up ...
     def run( self ):
-        if self.isKnown :
+        if self.isKnown:
             return
             #Former todo: program in an "update" mode - SOLVED THROUGH "UPDATE FLAG" IN "spider.py"
         res = requests.get( self.url , proxies = params.proxy )
@@ -32,12 +33,17 @@ class eepsite (threading.Thread):
             #page.close()
             #Creates a directory to hold the pages and sub-directories of this eepsite
             #TODO populate with content
-            directory = "./eepsites/" + utils.unMakeUrl( self.url ) + ".d"
-            if not os.path.exists ( directory ):
-                os.makedirs( directory )
-            path_to_page = directory + utils.unMakeURL( self.url ) + ".main"
-            with open ( path_to_page , "w" ) as page:
-                page.write( res.text )
+            # directory = "./eepsites/" + utils.unMakeURL ( self.url ) + ".d"
+            # if not os.path.exists ( directory ):
+            #     os.makedirs( directory )
+        #    path_to_page = directory + utils.unMakeURL( self.url ) + ".main"
+        #    with open ( path_to_page , "w" ) as page:
+        #        page.write( res.text )
+            myPage = page.page.pageFromURL ( self.url )
+            myPage.updatePage()
+            for link in myPage.getAllLocalLinks():
+                newPage = page.page.pageFromURL( link )
+                newPage.updatePage()
         elif "<h3>Website Unreachable</h3>" in res.text:
             #This most likely means the website is down
             utils.logDate ( params.path_to_down )

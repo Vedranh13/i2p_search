@@ -28,7 +28,7 @@ def removeDupsFromFile ( path ):
             writen_lines.append ( line )
 #TODO Download more RAM?
 def generateCleanDotSearches ():
-    myFile = open ( params.path_to_up , "w" )
+    """myFile = open ( params.path_to_up , "w" )
     myFile.close()
     myFile2 = open ( params.path_to_non , "w" )
     myFile2.close()
@@ -38,6 +38,7 @@ def generateCleanDotSearches ():
     myFile4.close()
     myFile5 = open ( params.path_to_weird , "w" )
     myFile5.close()
+    """
     updateAndClean ()
 def main( argv ):
     try:
