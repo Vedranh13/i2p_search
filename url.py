@@ -29,8 +29,8 @@ class url(object):
             self.freenet = True
         else:
             self.valid = False
-        if self.url[-1] == "/": # Might not work?
-            self.page = False
+        if not self.url[-1] == "/": # Might not work?
+            self.page = True
 
     def getDomain(self):
         if self.http:
