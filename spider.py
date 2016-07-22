@@ -2,13 +2,11 @@
 #TODO Make A verbose mode / status updates
 #Former todo: Clean this up - SOLVED BY MOVING THE EEPSITE CLASS AND URL METHODS TO "eepsite_spider.py"
 from threading import active_count
-from itertools import product
-from string import ascii_lowercase, digits
 import sys, getopt
 import eepsite_spider
 import params
 from time import sleep
-import utils
+import url
 # Write date on each file
 # Former todo: Clean this up with a "logDate" function -SOLVED
 try:
@@ -36,7 +34,7 @@ with open ( params.path_to_adr_book ) as adr_book:
     for adr in adr_book:
         sites = sites + 1
         print ( sites )
-        site = eepsite_spider.eepsite ( utils.makeURL ( "".join(adr) ) )
+        site = eepsite_spider.eepsite(url.url.URLFromPath("".join(adr)))
         # site = eepsite_spider.eepsite("http://zzz.i2p/")
         if not params.update:
             site.loadOldSites()
